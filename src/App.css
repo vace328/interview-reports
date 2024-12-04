@@ -42,3 +42,19 @@ table {
 	border-spacing: 0;
 }
 
+:root {
+	--main-dark: #02040F;
+	--main-light: white;
+	--neutral: #E5DADA;
+	--accent: #5AB1BB;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: var(--main-light);
+	width: 100%;
+	min-height: 100vh;
+}
