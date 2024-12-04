@@ -23,9 +23,9 @@
 - [Stefan Milovanovic](https://github.com/trefko)
 - [Ana Zlatkovic](https://www.frontendmentor.io/profile/vace328)
 
-##How to start
+## How to start
 
-###Front-end
+### Front-end
 
 - git clone git@github.com:vace328/interview-reports.git
 - git checkout dev
@@ -38,7 +38,7 @@ To start working on a feature
 - git push origin <feature-branch-name>
 - Upon feature completion, submit pull request (<feature-branch-name> into dev)
 
-###Back-end
+### Back-end
 
 - git clone https://github.com/nenadbugaric/interviews-reports-api-mock/
 - git checkout auth-client
@@ -47,6 +47,6 @@ To start working on a feature
 
 Note: Make sure server is running during feature development
 
-##Progress tracking
+## Progress tracking
 
 For each feature, there will be an issue defined. Choose a feature you want to work on, assign it to yourself and label it with "in-progress"
