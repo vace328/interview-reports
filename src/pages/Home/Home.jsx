@@ -6,7 +6,7 @@ const Home = () => {
     <div>
       <nav>
         <NavLink to="/candidates">Candidates</NavLink>
-        <NavLink to="/login">Login</NavLink>
+        <button>Login</button>
       </nav>
     </div>
   );
