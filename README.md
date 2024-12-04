@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# BIT - Interview reports app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of contents
 
-## Available Scripts
+- [Built with](#built-with)
+- [Team](#team)
+- [How to start](#how-to-start)
+  - [Front-end](#front-end)
+  - [Back-end](#back-end)
+- [Progress tracking](#progress-tracking)
 
-In the project directory, you can run:
+## Built with
 
-### `npm start`
+- Semantic HTML5 markup
+- React
+- Flexbox/Grid
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Team
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Dragan Brkic](https://github.com/dbrkic76)
+- [Marko Badivuk](https://github.com/mbadivuk)
+- [Nestor Pandurovic](https://github.com/NestorPand)
+- [Stefan Milovanovic](https://github.com/trefko)
+- [Ana Zlatkovic](https://www.frontendmentor.io/profile/vace328)
 
-### `npm test`
+##How to start
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###Front-end
 
-### `npm run build`
+- git clone git@github.com:vace328/interview-reports.git
+- git checkout dev
+- npm install
+- npm start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To start working on a feature
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- git checkout -b <feature-branch-name> dev
+- git push origin <feature-branch-name>
+- Upon feature completion, submit pull request (<feature-branch-name> into dev)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###Back-end
 
-### `npm run eject`
+- git clone https://github.com/nenadbugaric/interviews-reports-api-mock/
+- git checkout auth-client
+- npm install
+- npm start
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Note: Make sure server is running during feature development
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##Progress tracking
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+For each feature, there will be an issue defined. Choose a feature you want to work on, assign it to yourself and label it with "in-progress"
