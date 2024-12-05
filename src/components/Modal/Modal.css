@@ -1,0 +1,80 @@
+.login-button:hover {
+  background-color: #45a049;
+}
+
+.login-info {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 50%;
+  gap: 10px;
+  padding-left: 15px;
+
+  margin: auto;
+}
+.login-info > h1 {
+  font-size: 24px;
+  margin: auto;
+  display: flex;
+  justify-content: left;
+  text-align: left;
+}
+
+.login-info label {
+  font-weight: 600;
+  color: #333;
+}
+
+.login-info input {
+  padding: 10px;
+  border: 1px solid #cccccc75;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 70%;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid black;
+}
+
+.login-info input:focus {
+  border-color: #5ab1bb;
+  outline: none;
+}
+
+.submit-button {
+  background-color: #5ab1bb;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 85px;
+  font-size: 16px;
+  width: 30%;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button:hover {
+  background-color: #0e6973;
+}
+
+.shaking img {
+  width: 400px;
+  height: 300px;
+  border-radius: 0px 0px 0px 40px;
+  margin-top: 85px;
+}
+
+.login-info .welcome {
+  padding-bottom: 50px;
+  font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+}
+
+.login-info p {
+  font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+}
