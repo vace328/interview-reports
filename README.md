@@ -34,9 +34,9 @@
 
 To start working on a feature
 
-- git checkout -b <feature-branch-name> dev
-- git push origin <feature-branch-name>
-- Upon feature completion, submit pull request (<feature-branch-name> into dev)
+- git checkout -b feature-branch-name dev
+- git push origin feature-branch-name
+- Upon feature completion, submit pull request (feature-branch-name into dev)
 
 ### Back-end
 
