@@ -5,7 +5,7 @@ import Candidates from "./pages/Candidates/Candidates";
 import Single from "./pages/SingleCandidate/Single";
 // import Login from "./Auth/Login";
 import { CandidatesProvider } from "./contexts";
-import Modal from "./components/Modal/Modal";
+
 import { CANDIDATES } from "./utils/constants";
 import { useEffect, useState } from "react";
 import Admin from "./pages/Admin/Admin";
@@ -71,7 +71,6 @@ function App() {
         {/* <Route path="/character/:id" element={<SingleCharacterPage />} /> */}
         {/* <Route path="*" element={<Navigate to={"/"} />} /> */}
       </Routes>
-      <Modal />
     </>
   );
 }
