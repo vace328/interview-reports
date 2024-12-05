@@ -1,0 +1,22 @@
+header {
+  background-color: var(--accent);
+  display: flex;
+  align-items: center;
+}
+header img {
+  height: 60px;
+  padding: 10px;
+  margin-right: auto;
+}
+header nav {
+  margin-right: 30px;
+  font-size: 24px;
+}
+header a {
+  text-decoration: none;
+}
+header button {
+  font-size: 24px;
+  background-color: transparent;
+  border: none;
+}

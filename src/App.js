@@ -2,11 +2,13 @@ import "./App.css";
 import { Routes, Route } from "react-router";
 import Home from "./pages/Home/Home";
 import Candidates from "./pages/Candidates/Candidates";
-import Single from "./pages/SingleCandidate/Single"
+import Single from "./pages/SingleCandidate/Single";
 import Login from "./Auth/Login";
 import { CandidatesProvider } from "./contexts";
 import { CANDIDATES } from "./utils/constants";
 import { useEffect, useState } from "react";
+import Header from "./components/Header/Header";
+
 // import { TOKEN } from "./utils/constants.js";
 
 function App() {
@@ -30,12 +32,14 @@ function App() {
   }, []);
 
   return (
+    <>
+    <Header/>
     <Routes>
       <Route
         index
         element={
           // <CandidatesProvider value={{ candidates }}>
-            <Home />
+          <Home />
           /* </CandidatesProvider> */
         }
       />
@@ -47,7 +51,7 @@ function App() {
           </CandidatesProvider>
         }
       />
-       <Route
+      <Route
         path="candidate/:id"
         element={
           <CandidatesProvider value={{ candidates }}>
@@ -59,6 +63,7 @@ function App() {
       {/* <Route path="/character/:id" element={<SingleCharacterPage />} /> */}
       {/* <Route path="*" element={<Navigate to={"/"} />} /> */}
     </Routes>
+    </>
   );
 }
 
