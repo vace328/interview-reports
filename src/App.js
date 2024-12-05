@@ -67,7 +67,6 @@ function App() {
             </CandidatesProvider>
           }
         />
-
         {/* <Route path="/character/:id" element={<SingleCharacterPage />} /> */}
         {/* <Route path="*" element={<Navigate to={"/"} />} /> */}
       </Routes>
