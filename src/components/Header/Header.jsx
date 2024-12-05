@@ -9,7 +9,9 @@ const Header = () => {
 
     return (
         <header>
-            <NavLink to='/' className='logo'><img src={Logo} alt="logo" /></NavLink>
+            <nav className='logo'>
+                <NavLink to='/'><img src={Logo} alt="logo" /></NavLink>
+            </nav>
             <nav className='candidates'>
                 <NavLink to="/candidates">CANDIDATES</NavLink>
             </nav>
