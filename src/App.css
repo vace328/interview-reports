@@ -145,3 +145,12 @@ p, a, div {
   font-family: "Raleway";
   font-size: 16px;
 }
+
+
+/* Keeps footer on the bottom when there is no content on the page */
+#root {
+  min-height: 100vh;  
+  display: flex;
+  flex-direction: column; 
+  justify-content: space-between; 
+}
