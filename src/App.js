@@ -7,6 +7,7 @@ import Login from "./Auth/Login";
 import { CandidatesProvider } from "./contexts";
 import { CANDIDATES } from "./utils/constants";
 import { useEffect, useState } from "react";
+import Footer from "./components/Footer/Footer";
 // import { TOKEN } from "./utils/constants.js";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
   }, []);
 
   return (
+    <>
     <Routes>
       <Route
         index
@@ -59,6 +61,8 @@ function App() {
       {/* <Route path="/character/:id" element={<SingleCharacterPage />} /> */}
       {/* <Route path="*" element={<Navigate to={"/"} />} /> */}
     </Routes>
+    <Footer />
+    </>
   );
 }
 
