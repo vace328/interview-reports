@@ -30,7 +30,6 @@ function App() {
   }, []);
 
   return (
-    <>
     <Routes>
       <Route
         index
@@ -60,7 +59,6 @@ function App() {
       {/* <Route path="/character/:id" element={<SingleCharacterPage />} /> */}
       {/* <Route path="*" element={<Navigate to={"/"} />} /> */}
     </Routes>
-    </>
   );
 }
 
