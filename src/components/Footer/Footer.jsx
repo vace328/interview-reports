@@ -6,9 +6,9 @@ const Footer = () => {
     <footer className="footer">
       <p>&copy; {new Date().getFullYear()} My Company. All rights reserved.</p>
       <div className="footer-links">
-        <a href="/">Home</a>
-        <a href="/candidates">Candidates</a>
-        <a href="/about">About</a>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/candidates">Candidates</NavLink>
+        {/* <a href="/about">About</a> */}
       </div>
     </footer>
   );
