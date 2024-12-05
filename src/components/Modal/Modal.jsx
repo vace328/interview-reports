@@ -1,15 +1,74 @@
-import React from "react";
-import Model from "react-modal";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 import "./Modal.css";
+import { useNavigate } from "react-router";
 
-const Modal = () => {
+const LoginModal = () => {
   const [visible, setVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // Reset email and password when the component mounts
+  useEffect(() => {
+    setEmail("");
+    setPassword("");
+  }, []);
+
+  const handleLogin = async () => {
+    setErrorMessage("");
+    if (!email || !password) {
+      setErrorMessage("Email and password are required.");
+      return;
+    }
+
+    setLoading(true);
+    const response = await fetch("http://localhost:3333/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    setLoading(false);
+
+    if (response.ok) {
+      const data = await response.json();
+      const token = "Bearer " + data.accessToken;
+      localStorage.setItem("authToken", token);
+      // Reset fields after successful login
+      setEmail("");
+      setPassword("");
+
+      setVisible(false);
+      navigate("/admin");
+    } else {
+      const errorData = await response.json();
+      setErrorMessage(errorData.message || "Login failed");
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <>
-      {/* <button onClick={() => setVisible(true)}>Login</button> */}
+      <button
+        onClick={() => {
+          setVisible(true);
+          setErrorMessage("");
+        }}
+      >
+        Login
+      </button>
 
-      <Model
+      <Modal
         isOpen={visible}
         onRequestClose={() => setVisible(false)}
         style={{
@@ -27,15 +86,32 @@ const Modal = () => {
         }}
       >
         <div className="login-info">
-          <div></div>
           <h1 className="welcome">Welcome</h1>
-          <p>Username: </p>
-          <input type="text" />
+          <p>Username:</p>
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyDown} 
+          />
 
           <p>Password:</p>
-          <input type="password" />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyDown={handleKeyDown} 
+          />
 
-          <button className="submit-button">Login</button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+          <button
+            className="submit-button"
+            onClick={handleLogin}
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </div>
 
         <div className="shaking">
@@ -44,9 +120,9 @@ const Modal = () => {
             alt="shaking"
           />
         </div>
-      </Model>
+      </Modal>
     </>
   );
 };
 
-export default Modal;
+export default LoginModal;
