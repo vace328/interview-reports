@@ -1,7 +1,7 @@
 main{
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(90,177,187,1) 35%, rgb(181, 210, 216) 100%);
-    height: 90vh;
+    height: calc(100vh - 160px);
     color: var(--main-light);
     display: flex;
     flex-direction: row;
@@ -11,5 +11,35 @@ main{
 .welcome-text h1{
     padding-left: 200px;
     font-size: 50px;
+}
+.welcome-text h2{
+    padding-top: 20px;
+    padding-left: 200px;
+    font-size: 30px;
+}
+.welcome-text p{
+    padding-top: 20px;
+    padding-left: 200px;
+    padding-right: 20px;
+
+}
+.business-image{
+    width: 50%;
+    position: relative;
+    border-radius: 20px 20px 20px 20px;
+
+}
+.business-image::after{
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   content: "";
+   top: 0;
+   left: 0;
+   background-color: rgba(90,177,187,0.2);
+}
+.business-image img {
+    width: 100%;
+    border-radius: 20px 0px 0px 70px;
 }
 
