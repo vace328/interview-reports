@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "./Modal.css";
 import { useNavigate } from "react-router";
+// import { useAuth } from "../../contexts";
 
-const LoginModal = () => {
+const LoginModal = ({ isLoggedIn, setIsLoggedIn }) => {
   const [visible, setVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  // const authContext = useAuth();
 
   // Reset email and password when the component mounts
   useEffect(() => {
@@ -44,10 +46,12 @@ const LoginModal = () => {
       setPassword("");
 
       setVisible(false);
+      localStorage.setItem("isLoggedIn", true);
+      setIsLoggedIn(true);
       navigate("/admin");
     } else {
       const errorData = await response.json();
-      setErrorMessage(errorData.message || "Login failed");
+      setErrorMessage(errorData.message || "Incorrect email or password");
     }
   };
 
@@ -65,7 +69,7 @@ const LoginModal = () => {
           setErrorMessage("");
         }}
       >
-        Login
+        LOGIN
       </button>
 
       <Modal
@@ -92,7 +96,7 @@ const LoginModal = () => {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            onKeyDown={handleKeyDown} 
+            onKeyDown={handleKeyDown}
           />
 
           <p>Password:</p>
@@ -100,7 +104,7 @@ const LoginModal = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={handleKeyDown} 
+            onKeyDown={handleKeyDown}
           />
 
           {errorMessage && <p className="error-message">{errorMessage}</p>}

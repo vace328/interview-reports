@@ -5,7 +5,6 @@ import Candidates from "./pages/Candidates/Candidates";
 import Single from "./pages/SingleCandidate/Single";
 // import Login from "./Auth/Login";
 import { CandidatesProvider } from "./contexts";
-
 import { CANDIDATES } from "./utils/constants";
 import { useEffect, useState } from "react";
 import Admin from "./pages/Admin/Admin";
