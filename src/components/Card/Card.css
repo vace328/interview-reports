@@ -1,0 +1,20 @@
+.card-wrapper {
+  max-width: 300px;
+  background-color: var(--main-light);
+  text-align: center;
+  padding: 10px;
+  border: 7px solid var(--neutral);
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.card-wrapper img {
+  width: 100%;
+}
+.card-wrapper h2 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 20px 0;
+}
+.card-wrapper p {
+  margin-bottom: 10px;
+}
