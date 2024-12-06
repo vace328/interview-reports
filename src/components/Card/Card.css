@@ -3,12 +3,12 @@
   background-color: var(--main-light);
   text-align: center;
   padding: 10px;
-  border: 7px solid var(--neutral);
+  border: 7px solid var(--accent);
   border-radius: 10px;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
 }
 .card-wrapper img {
-  width: 100%;
+  width: 80%;
 }
 .card-wrapper h2 {
   font-weight: bold;
@@ -17,4 +17,5 @@
 }
 .card-wrapper p {
   margin-bottom: 10px;
+  font-size: 15px;
 }
