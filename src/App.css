@@ -150,7 +150,12 @@ p, a, div {
 /* Keeps footer on the bottom when there is no content on the page */
 #root {
   min-height: 100vh;  
-  display: flex;
+  position: relative;
+  /* display: flex;
   flex-direction: column; 
-  justify-content: space-between; 
+  justify-content: space-between;  */
+}
+
+.content-wrapper {
+  padding: 50px;
 }
