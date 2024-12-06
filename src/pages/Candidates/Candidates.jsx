@@ -7,7 +7,7 @@ import Card from "../../components/Card/Card";
 
 const Candidates = () => {
   const candidates = useContext(candidatesContext);
-  console.log(candidates);
+  // console.log(candidates);
 
   return (
     <>
