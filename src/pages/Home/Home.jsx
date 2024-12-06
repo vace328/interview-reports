@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <>
       <div>
-        <Header />
+        {/* <Header /> */}
         <main>
           <div className="welcome-text">
             <h1>Welcome Candidates</h1>
