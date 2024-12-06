@@ -8,6 +8,7 @@ import { CandidatesProvider } from "./contexts";
 import { CANDIDATES } from "./utils/constants";
 import { useEffect, useState } from "react";
 import Admin from "./pages/Admin/Admin";
+import Header from "./components/Header/Header";
 
 // import { TOKEN } from "./utils/constants.js";
 
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <>
+      <Header />
       <Routes>
         <Route
           index

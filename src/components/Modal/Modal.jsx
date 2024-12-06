@@ -51,7 +51,7 @@ const LoginModal = ({ isLoggedIn, setIsLoggedIn }) => {
       navigate("/admin");
     } else {
       const errorData = await response.json();
-      setErrorMessage(errorData.message || "Login failed");
+      setErrorMessage(errorData.message || "Incorrect email or password");
     }
   };
 
