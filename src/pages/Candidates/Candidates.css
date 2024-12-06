@@ -1,0 +1,12 @@
+.content-wrapper h1 {
+  font-weight: bold;
+  font-size: 2rem;
+}
+.cards-wrapper {
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 40px 10px;
+  margin: 40px auto;
+}
