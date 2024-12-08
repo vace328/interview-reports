@@ -33,42 +33,38 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route
-          index
-          element={
-            // <CandidatesProvider value={{ candidates }}>
-            <Home />
-            /* </CandidatesProvider> */
-          }
-        />
-        <Route
-          path="candidates"
-          element={
-            <CandidatesProvider value={{ candidates }}>
+      <CandidatesProvider value={{ candidates }}>
+        <Routes>
+          <Route
+            index
+            element={
+              // <CandidatesProvider value={{ candidates }}>
+              <Home />
+              /* </CandidatesProvider> */
+            }
+          />
+          <Route
+            path="candidates"
+            element={
               <Candidates />
-            </CandidatesProvider>
-          }
-        />
-        <Route
-          path="candidate/:id"
-          element={
-            <CandidatesProvider value={{ candidates }}>
+            }
+          />
+          <Route
+            path="candidate/:id"
+            element={
               <Single />
-            </CandidatesProvider>
-          }
-        />
-        <Route
-          path="admin"
-          element={
-            <CandidatesProvider value={{ candidates }}>
+            }
+          />
+          <Route
+            path="admin"
+            element={
               <Admin />
-            </CandidatesProvider>
-          }
-        />
-        {/* <Route path="/character/:id" element={<SingleCharacterPage />} /> */}
-        {/* <Route path="*" element={<Navigate to={"/"} />} /> */}
-      </Routes>
+            }
+          />
+          {/* <Route path="/character/:id" element={<SingleCharacterPage />} /> */}
+          {/* <Route path="*" element={<Navigate to={"/"} />} /> */}
+        </Routes>
+      </CandidatesProvider>
     </>
   );
 }
