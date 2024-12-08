@@ -134,23 +134,24 @@ table {
   box-sizing: border-box;
 }
 
-body {
+body,
+.outer-wrapper {
   background-color: var(--main-light);
   width: 100%;
   min-height: 100vh;
 }
 
-
-p, a, div {
+p,
+a,
+div {
   font-family: "Raleway";
   font-size: 16px;
 }
 
-
 /* Keeps footer on the bottom when there is no content on the page */
 #root {
-  min-height: 100vh;  
-  position: relative;
+  min-height: 100vh;
+  /* position: relative; */
   /* display: flex;
   flex-direction: column; 
   justify-content: space-between;  */
