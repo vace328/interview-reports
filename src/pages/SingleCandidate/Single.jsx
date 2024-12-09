@@ -15,8 +15,8 @@ const Single = () => {
     fetch(`http://localhost:3333/api/candidates?id=${id}`)
       .then((res) => res.json())
       .then((data) => setData(data[0]));
-  });
-  console.log(data);
+  }, []);
+  console.log(id);
   return (
     <>
       <Header />
@@ -37,7 +37,7 @@ const Single = () => {
           <h1>{data?.education}</h1>
         </div>
       </div>
-      <ReportsTable />
+      <ReportsTable data={data} />
       <Footer />
     </>
   );

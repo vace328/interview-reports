@@ -1,15 +1,19 @@
 import { useContext, useState } from "react";
+import { useParams } from "react-router";
 import { dataContext } from "../../contexts";
 import { formatDate } from "../../utils/format-data";
 import { getDefaultSorting } from "../../utils/sorting";
 import "./ReportsTable.css";
 
-const ReportsTable = () => {    
+const ReportsTable = ({ data }) => {
   const reports = useContext(dataContext).reports;
-  const [candidateId, setCandidateId] = useState(84705028);
+  const [candidateId, setCandidateId] = useState(data.id);
   const filteredReports = reports.filter((report) => {
     return report.candidateId === candidateId;
   });
+  console.log(reports);
+  console.log(filteredReports);
+  console.log(data);
 
   const columns = [
     { label: "Company", accessor: "companyName", sortable: true },
@@ -17,17 +21,11 @@ const ReportsTable = () => {
     { label: "Status", accessor: "status", sortable: true },
     { label: "Details", accessor: "details", sortable: false },
   ];
- 
+
   const initiallySortedData = getDefaultSorting(filteredReports, columns);
   const [tableData, setTableData] = useState(initiallySortedData);
-  console.log(getDefaultSorting(filteredReports, columns));
-  console.log(tableData);
-
-
   const [sortField, setSortField] = useState("");
   const [order, setOrder] = useState("asc");
-
- 
 
   const handleSorting = (sortField, sortOrder) => {
     if (sortField) {
@@ -43,7 +41,7 @@ const ReportsTable = () => {
       });
       setTableData(sorted);
     }
-  };  
+  };
 
   const handleSortingChange = (accessor) => {
     const sortOrder =
