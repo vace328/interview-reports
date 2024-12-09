@@ -1,19 +1,17 @@
 import React, { useContext, useState } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { candidatesContext } from "../../contexts";
+import { dataContext } from "../../contexts";
 import "./Candidates.css";
 import Card from "../../components/Card/Card";
 import Search from "../../components/Search/Search";
 
 const Candidates = () => {
-  const candidates = useContext(candidatesContext);
-
-  console.log(candidates);
+  const candidates = useContext(dataContext).candidates;
 
   const [search, setSearch] = useState("");
-  const filteredCandidates = candidates?.candidates?.filter((candidate) => {
-    return candidate?.name.toLowerCase().includes(search);
+  const filteredCandidates = candidates?.filter((candidate) => {
+    return candidate?.name?.toLowerCase().includes(search);
   });
   return (
     <>
