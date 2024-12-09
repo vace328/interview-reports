@@ -1,8 +1,11 @@
 import React from 'react'
+import ReportsTable from '../../components/ReportsTable/ReportsTable'
 
 const Single = () => {
   return (
-    <div>Single</div>
+    <div>
+      <ReportsTable />
+    </div>
   )
 }
 
