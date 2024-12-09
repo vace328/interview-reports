@@ -1,11 +1,13 @@
-const Search = ({ search, setSearch }) => {
+import "./AdminSearch.css";
+
+const AdminSearch = ({ search, setSearch }) => {
   return (
-    <div>
+    <div className="admin-search">
       <input
         type="search"
         name=""
         id="search"
-        placeholder="Search"
+        placeholder="Search by company/candidate"
         onInput={(event) => {
           setSearch(event.target.value.toLowerCase());
         }}
@@ -15,4 +17,4 @@ const Search = ({ search, setSearch }) => {
   );
 };
 
-export default Search;
+export default AdminSearch;

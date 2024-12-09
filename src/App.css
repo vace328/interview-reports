@@ -124,10 +124,10 @@ table {
 }
 
 :root {
-  --main-dark: #02040f;
+  --main-dark: rgb(2, 4, 15);
   --main-light: white;
   --neutral: #ededed;
-  --accent: #5ab1bb;
+  --accent: rgb(90, 177, 187);
 }
 
 * {

@@ -1,8 +1,12 @@
 import { createContext } from "react";
 import React, { useContext, useState } from "react";
 import Header from "./components/Header/Header";
-export const candidatesContext = createContext();
-export const CandidatesProvider = candidatesContext.Provider;
+
+
+export const dataContext = createContext();
+export const DataProvider = dataContext.Provider;
+
+
 
 export const AuthContext = createContext();
 export const AuthProvider = () => {

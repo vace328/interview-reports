@@ -4,6 +4,8 @@ import { useParams } from "react-router";
 import "./Single.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import ReportsTable from '../../components/ReportsTable/ReportsTable'
+
 
 const Single = () => {
   const { id } = useParams();
@@ -35,9 +37,9 @@ const Single = () => {
           <h1>{data?.education}</h1>
         </div>
       </div>
+      <ReportsTable />
       <Footer />
     </>
   );
 };
-
 export default Single;

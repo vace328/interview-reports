@@ -4,16 +4,15 @@ import Home from "./pages/Home/Home";
 import Candidates from "./pages/Candidates/Candidates";
 import Single from "./pages/SingleCandidate/Single";
 // import Login from "./Auth/Login";
-import { CandidatesProvider } from "./contexts";
-import { CANDIDATES } from "./utils/constants";
+import { DataProvider } from "./contexts";
+import { CANDIDATES, REPORTS } from "./utils/constants";
 import { useEffect, useState } from "react";
 import Admin from "./pages/Admin/Admin";
 
-// import { TOKEN } from "./utils/constants.js";
-
 function App() {
   const [candidates, setCandidates] = useState([]);
-  // const URL = url + "/" + data.id;
+  const [reports, setReports] = useState([]);
+ 
   useEffect(() => {
     const options = {
       method: "GET",
@@ -31,44 +30,52 @@ function App() {
       });
   }, []);
 
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+    };
+
+    fetch(REPORTS, options)
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        setReports(res);
+      });
+  }, []);
+
   return (
     <>
-      <Routes>
-        <Route
-          index
-          element={
-            // <CandidatesProvider value={{ candidates }}>
-            <Home />
-            /* </CandidatesProvider> */
-          }
-        />
-        <Route
-          path="candidates"
-          element={
-            <CandidatesProvider value={{ candidates }}>
+      <DataProvider value={{ candidates, reports }}>
+        <Routes>
+          <Route
+            index
+            element={
+              <Home />
+            }
+          />
+          <Route
+            path="candidates"
+            element={
               <Candidates />
-            </CandidatesProvider>
-          }
-        />
-        <Route
-          path="candidate/:id"
-          element={
-            <CandidatesProvider value={{ candidates }}>
+            }
+          />
+          <Route
+            path="candidate/:id"
+            element={
               <Single />
-            </CandidatesProvider>
-          }
-        />
-        <Route
-          path="admin"
-          element={
-            <CandidatesProvider value={{ candidates }}>
+            }
+          />
+          <Route
+            path="admin"
+            element={
               <Admin />
-            </CandidatesProvider>
-          }
-        />
-        {/* <Route path="/character/:id" element={<SingleCharacterPage />} /> */}
-        {/* <Route path="*" element={<Navigate to={"/"} />} /> */}
-      </Routes>
+            }
+          />          
+        </Routes>
+      </DataProvider>
     </>
   );
 }
