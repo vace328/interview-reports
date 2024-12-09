@@ -11,7 +11,7 @@ import Admin from "./pages/Admin/Admin";
 
 function App() {
   const [candidates, setCandidates] = useState([]);
-  const [reports, setReports] = useState([])
+  const [reports, setReports] = useState([]);
  
   useEffect(() => {
     const options = {
