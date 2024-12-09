@@ -19,10 +19,11 @@ const Header = () => {
           <img src={Logo} alt="logo" />
         </NavLink>
       </nav>
-      <nav className="candidates">
+      <div className="links-container">
+      <div className="candidates">
         <NavLink to="/candidates">CANDIDATES</NavLink>
-      </nav>
-      <nav className="login">
+      </div>
+      <div className="login">
         {isLoggedIn ? (
           <button
             onClick={() => {
@@ -37,7 +38,8 @@ const Header = () => {
         ) : (
           <Modal setIsLoggedIn={setIsLoggedIn} />
         )}
-      </nav>
+      </div>
+      </div>
     </header>
   );
 };

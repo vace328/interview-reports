@@ -1,14 +1,12 @@
 header {
   background-color: var(--accent);
-  padding-left: 50px;
-  padding-right: 50px;
+  /* padding-left: 50px; */
+  /* padding-right: 50px; */
   display: flex;
   align-items: center;
   height: 80px;
 }
-.logo {
-  margin-right: auto;
-}
+
 .logo img {
   height: 60px;
   padding: 9px 5px 5px 5px;
@@ -17,18 +15,107 @@ header {
 header a {
   text-decoration: none;
   font-size: 24px;
-  font-family: Raleway;
+  /* font-family: Raleway; */
+  font-family: 'Anton SC', sans-serif;
   color: black;
   line-height: normal;
-  padding-right: 30px;
+  /* padding-right: 30px; */
 }
 header button {
   padding: 0;
   font-size: 24px;
   background-color: transparent;
   border: none;
-  font-family: Raleway;
+  /* font-family: Raleway; */
+  font-family: 'Anton SC', sans-serif;
   color: black;
   padding-right: 30px;
   cursor: pointer;
+}
+
+
+
+@media(max-width: 600px){
+  header{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: fit-content;
+    padding-bottom: 10px;
+  }
+  .logo{
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   height: 50px;
+   
+     
+  }
+ 
+  .logo img{
+    max-width: 100%;
+    max-height: 100%;
+    width: 100px
+    
+  }
+  .candidates a{
+   width: 30px;
+   font-size: 14px;
+  }
+  .login{
+    text-align: center;
+  }
+  .login button{
+    
+    display: inline-block;
+    font-size: 14px;
+    padding-right: 0px;
+  }
+
+}
+
+@media(min-width: 600px){
+  header{
+    display: flex;
+    justify-content: space-between;
+  }
+  .logo{
+    padding-left: 30px;
+    
+  }
+  .logo img{
+    width: 150px
+  }
+  .candidates a{
+   
+   font-size: 16px;
+   padding-left: 20px;
+  }
+  .links-container{
+   display: flex;
+   flex-direction: row;
+   
+
+  }
+  .login button{
+    font-size: 16px;
+    padding-left: 20px;
+  }
+}
+@media(min-width: 1025px){
+  .logo{
+    padding-left: 30px;
+    
+  }
+  .logo img{
+    width: 200px
+  }
+  .candidates a{
+   
+   font-size: 20px;
+  }
+  .login button{
+    font-size: 20px;
+  }
 }
