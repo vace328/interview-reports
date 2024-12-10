@@ -15,7 +15,7 @@ const Single = () => {
     fetch(`http://localhost:3333/api/candidates?id=${id}`)
       .then((res) => res.json())
       .then((data) => setData(data[0]));
-  });
+  }, []);
   console.log(data);
   return (
     <>
