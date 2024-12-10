@@ -1,12 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { dataContext } from "../../contexts";
 import "./Admin.css";
-import Header from "../../components/Header/Header";
 import AdminSearch from "../../components/AdminSearch/AdminSearch";
-import Footer from "../../components/Footer/Footer";
 import ReportCard from "../../components/ReportCard/ReportCard";
+import useResize from "../../hooks/useResize";
 
-const Admin = () => {
+const Admin = ({setClasses}) => {
   const reports = useContext(dataContext).reports;
   const [search, setSearch] = useState("");
   const filteredReports = reports?.filter((report) => {
@@ -16,9 +15,13 @@ const Admin = () => {
     );
   });
 
+  const ref = useRef(null);
+  const isShortContent = useResize(ref);
+  let contentDivClass = isShortContent ? "outer-wrapper shortContent" : "outer-wrapper";
+  useEffect(() => setClasses(contentDivClass));
+
   return (
-    <div>
-      <Header />
+    <div className="content-wrapper" ref={ref}>
       <AdminSearch search={search} setSearch={setSearch} reports={reports} />
       <div className="rcard-title">
         <div className="company">Company</div>
@@ -34,7 +37,6 @@ const Admin = () => {
           })}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

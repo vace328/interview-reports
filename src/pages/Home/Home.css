@@ -2,7 +2,6 @@
 main {
     background: rgb(2, 0, 36);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(90, 177, 187, 1) 35%, rgb(181, 210, 216) 100%);
-    height: calc(100vh - 160px); /* Adjusting the height to avoid footer overlap */
     color: var(--main-light);
     display: flex;
     flex-direction: column; /* Stack the elements vertically by default */
