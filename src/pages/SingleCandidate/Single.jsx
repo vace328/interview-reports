@@ -1,15 +1,18 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import "./Single.css";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import useResize from "../../hooks/useResize";
 import ReportsTable from '../../components/ReportsTable/ReportsTable'
 
 
-const Single = () => {
+const Single = ({ setClasses }) => {
   const { id } = useParams();
   const [data, setData] = useState({});
+
+  const ref = useRef(null);
+  const isShortContent = useResize(ref);
+  let contentDivClass = isShortContent ? "outer-wrapper shortContent" : "outer-wrapper";
+  useEffect(() => setClasses(contentDivClass));
 
   useEffect(() => {
     fetch(`http://localhost:3333/api/candidates?id=${id}`)
@@ -18,8 +21,7 @@ const Single = () => {
   }, []);
   
   return (
-    <>
-      <Header />
+    <div className="content-wrapper" ref={ref}>
       <div className="container">
         <div className="left">
           <img src={data?.avatar} alt="" />
@@ -38,8 +40,7 @@ const Single = () => {
         </div>
       </div>
       <ReportsTable id={id} />
-      <Footer />
-    </>
+    </div>
   );
 };
 export default Single;
