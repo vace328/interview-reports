@@ -7,7 +7,7 @@ const AdminSearch = ({ search, setSearch }) => {
         type="search"
         name=""
         id="search"
-        placeholder="Search by company/candidate"
+        placeholder="Search"
         onInput={(event) => {
           setSearch(event.target.value.toLowerCase());
         }}

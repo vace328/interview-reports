@@ -1,32 +1,20 @@
 import "./RCModal.css";
-import Modal from "react-modal";
+import { Modal } from 'react-responsive-modal';
 import { formatDate } from "../../utils/format-data";
+import "react-responsive-modal/styles.css";
 
 const RCModal = ({ visible, setVisible, report }) => {
   console.log(report);
 
   return (
     <Modal
-      isOpen={visible}
-      onRequestClose={() => setVisible(false)}
-      style={{
-        overlay: {
-          background: "#02040f55",
-        },
-        content: {
-          width: "800px",
-          height: "500px",
-          display: "flex",
-          background: "white",
-          margin: "auto",
-          borderRadius: "25px",
-        },
-      }}
+      open={visible}
+      onClose={() => setVisible(false)}
+      center
     >
       <div className="fullModal">
         <div className="modalCandidateName">
           {report.candidateName}
-          <button onClick={() => setVisible(false)}>X</button>
         </div>
         <div className="modalCandidateInfo">
           <div className="modalCandidateStatus">
@@ -46,7 +34,7 @@ const RCModal = ({ visible, setVisible, report }) => {
           </div>
         </div>
       </div>
-    </Modal>
+    </Modal >
   );
 };
 

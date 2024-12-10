@@ -15,8 +15,8 @@ const ReportCard = ({ report }) => {
         <div className="date">{date}</div>
         <div className="status">{report.status}</div>
         <div className="buttons">
-          <button onClick={() => openModal("viewModal")}>View</button>
-          <button>Delete</button>
+          <button onClick={() => openModal("viewModal")}>&#128065;</button>
+          <button>&#10008;</button>
         </div>
       </div>
       {currentModal === "viewModal" && (
