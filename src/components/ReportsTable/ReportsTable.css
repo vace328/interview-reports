@@ -9,6 +9,7 @@
     width: 100%;
     /* margin: 0 auto; */
 }
+
 .report-item {
     border-bottom: 2px solid var(--main-dark);
     padding: 10px 0;
@@ -16,21 +17,30 @@
     display: block;
     text-align: center;
 }
+
 .report-item span {
     display: inline-block;
     width: 25%;
     padding: 5px;
 }
+
 .report-header {
     background-color: var(--accent);
     font-weight: 700;
 }
+
 .up:after {
     content: " \2191";
-  }
+}
+
 .down:after {
     content: " \2193";
-  }
+}
+
 .default:after {
     content: " \2191 \2193";
-  }
+}
+
+.report-item_view {
+    font-size: 30px;
+}
