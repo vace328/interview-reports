@@ -37,7 +37,7 @@ const Single = () => {
           <h1>{data?.education}</h1>
         </div>
       </div>
-      <ReportsTable data={data} />
+      <ReportsTable id={id} />
       <Footer />
     </>
   );

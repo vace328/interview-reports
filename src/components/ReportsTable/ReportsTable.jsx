@@ -1,31 +1,35 @@
-import { useContext, useState } from "react";
-import { useParams } from "react-router";
-import { dataContext } from "../../contexts";
+import { useEffect, useState } from "react";
 import { formatDate } from "../../utils/format-data";
 import { getDefaultSorting } from "../../utils/sorting";
 import "./ReportsTable.css";
 
-const ReportsTable = ({ data }) => {
-  const reports = useContext(dataContext).reports;
-  const [candidateId, setCandidateId] = useState(data.id);
-  const filteredReports = reports.filter((report) => {
-    return report.candidateId === candidateId;
-  });
-  console.log(reports);
-  console.log(filteredReports);
-  console.log(data);
-
+const ReportsTable = ({ id }) => {;
   const columns = [
     { label: "Company", accessor: "companyName", sortable: true },
     { label: "Date", accessor: "interviewDate", sortable: true },
     { label: "Status", accessor: "status", sortable: true },
     { label: "Details", accessor: "details", sortable: false },
   ];
-
-  const initiallySortedData = getDefaultSorting(filteredReports, columns);
-  const [tableData, setTableData] = useState(initiallySortedData);
+  const [tableData, setTableData] = useState([]);
   const [sortField, setSortField] = useState("");
   const [order, setOrder] = useState("asc");
+
+  const candidateReportsURL = `http://localhost:3333/api/reports?candidateId=${id}`
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    fetch(candidateReportsURL, options)
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        setTableData(getDefaultSorting(res, columns));
+      });
+  }, []);
 
   const handleSorting = (sortField, sortOrder) => {
     if (sortField) {
