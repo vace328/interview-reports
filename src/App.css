@@ -86,6 +86,7 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -100,17 +101,21 @@ nav,
 section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol,
 ul {
   list-style: none;
 }
+
 blockquote,
 q {
   quotes: none;
 }
+
 blockquote:before,
 blockquote:after,
 q:before,
@@ -118,6 +123,7 @@ q:after {
   content: "";
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -134,14 +140,16 @@ table {
   box-sizing: border-box;
 }
 
-body {
+body, html {
   background-color: var(--main-light);
   width: 100%;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 
-p, a, div {
+p,
+a,
+div {
   font-family: "Raleway";
   font-size: 16px;
 }
@@ -149,13 +157,34 @@ p, a, div {
 
 /* Keeps footer on the bottom when there is no content on the page */
 #root {
-  min-height: 100vh;  
-  position: relative;
-  /* display: flex;
-  flex-direction: column; 
-  justify-content: space-between;  */
+  min-height: 100vh;
 }
 
 .content-wrapper {
   padding: 50px;
+  height: 100%;
+  min-height: calc(100vh - 80px);
+}
+
+/* Footer at the bottom if content is short */
+.test {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.shortContent .page-wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+.shortContent .content-wrapper {
+  padding-bottom: 80px;
+}
+
+.shortContent .footer {
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
