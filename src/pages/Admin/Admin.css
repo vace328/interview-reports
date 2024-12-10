@@ -10,3 +10,8 @@
   width: 15%;
   text-align: center;
 }
+@media (max-width: 850px) {
+  .rcard-title {
+    display: none;
+  }
+}

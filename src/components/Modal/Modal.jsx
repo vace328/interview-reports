@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
+import Modal from "react-responsive-modal";
 import "./Modal.css";
 import { useNavigate } from "react-router";
+// import "react-responsive-modal/styles.css";
+
 // import { useAuth } from "../../contexts";
 
 const LoginModal = ({ isLoggedIn, setIsLoggedIn }) => {
@@ -73,21 +75,10 @@ const LoginModal = ({ isLoggedIn, setIsLoggedIn }) => {
       </button>
 
       <Modal
-        isOpen={visible}
-        onRequestClose={() => setVisible(false)}
-        style={{
-          overlay: {
-            background: "#02040f55",
-          },
-          content: {
-            width: "800px",
-            height: "500px",
-            display: "flex",
-            background: "white",
-            margin: "auto",
-            borderRadius: "25px",
-          },
-        }}
+        open={visible}
+        onClose={() => setVisible(false)}
+        center
+        modalId="login-modal"
       >
         <div className="login-info">
           <h1 className="welcome">Welcome</h1>
@@ -124,7 +115,7 @@ const LoginModal = ({ isLoggedIn, setIsLoggedIn }) => {
             alt="shaking"
           />
         </div>
-      </Modal>
+      </Modal >
     </>
   );
 };
