@@ -16,7 +16,7 @@ const Single = () => {
       .then((res) => res.json())
       .then((data) => setData(data[0]));
   }, []);
-  console.log(id);
+  
   return (
     <>
       <Header />
