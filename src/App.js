@@ -54,10 +54,10 @@ function App() {
         <Header />
         <DataProvider value={{ candidates, reports }}>
           <Routes>
-            <Route index element={<Home />} />
+            <Route index element={<Home setClasses={setClasses} />} />
             <Route path="candidates" element={<Candidates setClasses={setClasses} />} />
-            <Route path="candidate/:id" element={<Single />} />
-            <Route path="admin" element={<Admin />} />
+            <Route path="candidate/:id" element={<Single setClasses={setClasses} />} />
+            <Route path="admin" element={<Admin setClasses={setClasses} />} />
           </Routes>
         </DataProvider>
         <Footer />
