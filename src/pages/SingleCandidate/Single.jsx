@@ -16,7 +16,7 @@ const Single = () => {
       .then((res) => res.json())
       .then((data) => setData(data[0]));
   }, []);
-  console.log(data);
+  
   return (
     <>
       <Header />
@@ -37,7 +37,7 @@ const Single = () => {
           <h1>{data?.education}</h1>
         </div>
       </div>
-      <ReportsTable />
+      <ReportsTable id={id} />
       <Footer />
     </>
   );
