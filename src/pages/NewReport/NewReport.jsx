@@ -3,6 +3,8 @@ import "./NewReport.css";
 import useResize from "../../hooks/useResize";
 import { dataContext } from "../../contexts";
 import { COMPANIES } from "../../utils/constants";
+import { REPORTS } from "../../utils/constants";
+import { useNavigate } from "react-router";
 
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -19,17 +21,59 @@ const NewReport = ({ setClasses }) => {
   const [status, setStatus] = useState("passed");
   const [note, setNote] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(JSON.parse(selectedCandidate).id);
-    console.log(JSON.parse(selectedCandidate).name);
-    console.log(JSON.parse(selectedCompany).id);
-    console.log(JSON.parse(selectedCompany).name);
-    console.log(interviewDate);
-    console.log(phase);
-    console.log(status);
-    console.log(note);
-    // setSelectedCandidate("DEFAULT")
+    const formData = {
+      id: randomIntFromInterval(10000000, 20000000),
+      candidateId: JSON.parse(selectedCandidate).id,
+      candidateName: JSON.parse(selectedCandidate).name,
+      companyId: JSON.parse(selectedCompany).id,
+      companyName: JSON.parse(selectedCompany).name,
+      interviewDate: interviewDate,
+      phase: phase,
+      status: status,
+      note: note,
+    };
+
+    fetch(REPORTS, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("authToken"),
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data === "jwt expired") {
+          localStorage.removeItem("authToken");
+          navigate("/");
+        } else {
+          setSelectedCandidate("DEFAULT");
+          setSelectedCompany("DEFAULT");
+          setInterviewDate("2024-12-11");
+          setPhase("hr");
+          setStatus("passed");
+          setNote("");
+        }
+        if (data === "Incorrect authorization scheme") {
+          navigate("/");
+        }
+        // console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // console.log(JSON.parse(selectedCandidate).id);
+    // console.log(JSON.parse(selectedCandidate).name);
+    // console.log(JSON.parse(selectedCompany).id);
+    // console.log(JSON.parse(selectedCompany).name);
+    // console.log(interviewDate);
+    // console.log(phase);
+    // console.log(status);
+    // console.log(note);
   };
 
   const ref = useRef(null);
@@ -57,7 +101,7 @@ const NewReport = ({ setClasses }) => {
 
   return (
     <div className="content-wrapper" ref={ref}>
-      <h1>Create new report</h1>
+      <h1 className="form-page-heading">Create new report</h1>
       <div className="form-wrapper">
         <form id="newReportForm" onSubmit={handleSubmit}>
           <div className="formFieldWrapper">
@@ -125,10 +169,11 @@ const NewReport = ({ setClasses }) => {
                   fullDate.getDate() < 10
                     ? `0${fullDate.getDate()}`
                     : fullDate.getDate();
-
-                const formatted = `${fullDate.getFullYear()}-${
-                  fullDate.getMonth() + 1
-                }-${date}`;
+                const month =
+                  fullDate.getMonth() + 1 < 10
+                    ? `0${fullDate.getMonth() + 1}`
+                    : fullDate.getMonth() + 1;
+                const formatted = `${fullDate.getFullYear()}-${month}-${date}`;
                 setInterviewDate(formatted);
               }}
             />
@@ -139,7 +184,8 @@ const NewReport = ({ setClasses }) => {
               type="radio"
               id="phase-hr"
               name="phase"
-              value="hr"
+              value={phase}
+              defaultChecked
               onChange={(e) => {
                 setPhase(e.target.value);
               }}
@@ -149,7 +195,7 @@ const NewReport = ({ setClasses }) => {
               type="radio"
               id="phase-final"
               name="phase"
-              value="final"
+              value={status}
               onChange={(e) => {
                 setPhase(e.target.value);
               }}
@@ -163,6 +209,7 @@ const NewReport = ({ setClasses }) => {
               id="status-passed"
               name="status"
               value="passed"
+              defaultChecked
               onChange={(e) => {
                 setStatus(e.target.value);
               }}
@@ -192,7 +239,7 @@ const NewReport = ({ setClasses }) => {
           </div>
 
           {/* <div class="error-msg hide">All fields are required.</div> */}
-          <button id="submitPost" type="submit">
+          <button id="submitPost" type="submit" className="btn-submit">
             Submit report
           </button>
         </form>
