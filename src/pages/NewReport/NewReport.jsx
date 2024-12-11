@@ -4,36 +4,33 @@ import useResize from "../../hooks/useResize";
 import { dataContext } from "../../contexts";
 import { COMPANIES } from "../../utils/constants";
 
-const NewReport = ({ setClasses }) => {
-  const [formData, setFormData] = useState({
-    id: crypto.randomUUID,
-    candidateId: "",
-    companyId: "",
-    companyName: "",
-    interviewDate:
-      "Sun Aug 29 2021 06:55:42 GMT+0200 (Central European Summer Time)",
-    phase: "final",
-    status: "passed",
-    note: "Harum consequuntur rerum libero impedit. Quia omnis amet explicabo pariatur. Qui excepturi molestiae suscipit officia eius corrupti.",
-  });
+function randomIntFromInterval(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
-  const handleFormChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-      interviewDate: `${new Date(value)}`,
-    }));
-  };
+const NewReport = ({ setClasses }) => {
+  const [companies, setCompanies] = useState([]);
+  const candidates = useContext(dataContext).candidates;
+
+  const [selectedCandidate, setSelectedCandidate] = useState("DEFAULT");
+  const [selectedCompany, setSelectedCompany] = useState("DEFAULT");
+  const [interviewDate, setInterviewDate] = useState("2024-12-11");
+  const [phase, setPhase] = useState("hr");
+  const [status, setStatus] = useState("passed");
+  const [note, setNote] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
+    console.log(JSON.parse(selectedCandidate).id);
+    console.log(JSON.parse(selectedCandidate).name);
+    console.log(JSON.parse(selectedCompany).id);
+    console.log(JSON.parse(selectedCompany).name);
+    console.log(interviewDate);
+    console.log(phase);
+    console.log(status);
+    console.log(note);
+    // setSelectedCandidate("DEFAULT")
   };
-
-  const [companies, setCompanies] = useState([]);
-//   const [chosenCandidate, setChosenCandidate] = useState("");
-//   const [chosenCompany, setChosenCompany] = useState("");
 
   const ref = useRef(null);
   const isShortContent = useResize(ref);
@@ -41,9 +38,6 @@ const NewReport = ({ setClasses }) => {
     ? "outer-wrapper shortContent"
     : "outer-wrapper";
   useEffect(() => setClasses(contentDivClass));
-
-  const candidates = useContext(dataContext).candidates;
-  console.log(candidates);
 
   useEffect(() => {
     const options = {
@@ -61,70 +55,117 @@ const NewReport = ({ setClasses }) => {
       });
   }, []);
 
-  console.log(crypto.randomUUID());
   return (
     <div className="content-wrapper" ref={ref}>
       <h1>Create new report</h1>
-      <div class="form-wrapper">
+      <div className="form-wrapper">
         <form id="newReportForm" onSubmit={handleSubmit}>
-          <div class="formFieldWrapper">
-            <label for="candidate">Candidate</label>
+          <div className="formFieldWrapper">
+            <label htmlFor="candidate">Candidate</label>
             <select
-              name="candidate"
+              name="candidateId"
               id="candidate"
-              onChange={handleFormChange}
+              onChange={(e) => {
+                setSelectedCandidate(e.target.value);
+              }}
+              value={selectedCandidate}
             >
-              <option hidden disabled selected value>
+              <option hidden disabled value="DEFAULT">
                 {" "}
                 -- select an option --{" "}
               </option>
               {candidates.map((candidate) => {
                 return (
-                  <option value={candidate.candidateId}>
+                  <option
+                    key={crypto.randomUUID()}
+                    value={JSON.stringify(candidate)}
+                  >
                     {candidate.name}
                   </option>
                 );
               })}
             </select>
           </div>
-          <div class="formFieldWrapper">
-            <label for="company">Company</label>
+          <div className="formFieldWrapper">
+            <label htmlFor="company">Company</label>
             <select
               name="company"
               id="company"
-              onChange={handleFormChange}
+              onChange={(e) => {
+                setSelectedCompany(e.target.value);
+              }}
+              value={selectedCompany}
             >
-              <option hidden disabled selected value>
+              <option hidden disabled value="DEFAULT">
                 {" "}
                 -- select an option --{" "}
               </option>
               {companies.map((company) => {
                 return (
-                  <option value={company.candidateId}>{company.name}</option>
+                  <option
+                    key={crypto.randomUUID()}
+                    value={JSON.stringify(company)}
+                  >
+                    {company.name}
+                  </option>
                 );
               })}
             </select>
           </div>
-          <div class="formFieldWrapper">
-            <label for="date">Date</label>
-            <input type="date" id="date" name="datet" value="2024-07-22" onChange={handleFormChange}/>
+          <div className="formFieldWrapper">
+            <label htmlFor="date">Interview Date</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={interviewDate}
+              onChange={(e) => {
+                const fullDate = new Date(e.target.value);
+                const date =
+                  fullDate.getDate() < 10
+                    ? `0${fullDate.getDate()}`
+                    : fullDate.getDate();
+
+                const formatted = `${fullDate.getFullYear()}-${
+                  fullDate.getMonth() + 1
+                }-${date}`;
+                setInterviewDate(formatted);
+              }}
+            />
           </div>
-          <div class="formFieldWrapper">
-            <label for="phase">Phase</label>
-            <input type="radio" id="phase-hr" name="phase" value="hr" checked onChange={handleFormChange} />
+          <div className="formFieldWrapper">
+            <label htmlFor="phase">Phase</label>
+            <input
+              type="radio"
+              id="phase-hr"
+              name="phase"
+              value="hr"
+              onChange={(e) => {
+                setPhase(e.target.value);
+              }}
+            />
             HR
-            <input type="radio" id="phase-final" name="phase" value="final" onChange={handleFormChange} />
+            <input
+              type="radio"
+              id="phase-final"
+              name="phase"
+              value="final"
+              onChange={(e) => {
+                setPhase(e.target.value);
+              }}
+            />
             Final
           </div>
-          <div class="formFieldWrapper">
-            <label for="status">Status</label>
+          <div className="formFieldWrapper">
+            <label htmlFor="status">Status</label>
             <input
               type="radio"
               id="status-passed"
               name="status"
               value="passed"
-              checked
-              onChange={handleFormChange}
+              onChange={(e) => {
+                setStatus(e.target.value);
+              }}
             />
             Passed
             <input
@@ -132,14 +173,24 @@ const NewReport = ({ setClasses }) => {
               id="status-declined"
               name="status"
               value="declined"
-              onChange={handleFormChange}
+              onChange={(e) => {
+                setStatus(e.target.value);
+              }}
             />
             Declined
           </div>
-          <div class="formFieldWrapper">
-            <label for="note">Note:</label>
-            <textarea name="note" id="note" cols="30" rows="10" onChange={handleFormChange}></textarea>
+          <div className="formFieldWrapper">
+            <label htmlFor="note">Note</label>
+            <textarea
+              name="note"
+              id="note"
+              value={note}
+              onChange={(e) => {
+                setNote(e.target.value);
+              }}
+            ></textarea>
           </div>
+
           {/* <div class="error-msg hide">All fields are required.</div> */}
           <button id="submitPost" type="submit">
             Submit report

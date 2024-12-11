@@ -1,3 +1,37 @@
+h1 {
+    margin-bottom: 50px;
+}
+
+.form-wrapper {
+    margin: 0 auto;
+}
+
 label {
     display: block;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
+
+.formFieldWrapper {
+    margin-bottom: 20px;
+    padding: 0 10px 0 20px;
+    border-left: 4px solid var(--accent);
+}
+
+/* #date {
+    width: 300px;
+    padding: 10px;
+    border: none;
+} */
+
+button {
+    background-color: var(--main-dark);
+    color: var(--accent);
+    font-weight: 700;
+    padding: 15px 10px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+  }

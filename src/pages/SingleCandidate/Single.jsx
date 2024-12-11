@@ -43,7 +43,6 @@ const Single = ({setClasses}) => {
         </div>
       </div>
       <ReportsTable id={id} />
-      <Footer />
     </div>
   );
 };
