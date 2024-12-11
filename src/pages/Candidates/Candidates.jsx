@@ -1,6 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
 import { dataContext } from "../../contexts";
 import "./Candidates.css";
 import Card from "../../components/Card/Card";
