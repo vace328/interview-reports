@@ -20,6 +20,11 @@ const Header = () => {
         </NavLink>
       </nav>
       <div className="links-container">
+        {isLoggedIn && (
+          <div className="reports">
+            <NavLink to="/admin">REPORTS</NavLink>
+          </div>
+       )}
       <div className="candidates">
         <NavLink to="/candidates">CANDIDATES</NavLink>
       </div>
@@ -38,7 +43,22 @@ const Header = () => {
         ) : (
           <Modal setIsLoggedIn={setIsLoggedIn} />
         )}
-      </div>
+        <div className="login">
+          {isLoggedIn ? (
+            <button
+              onClick={() => {
+                setIsLoggedIn(false);
+                localStorage.setItem("isLoggedIn", false);
+                localStorage.removeItem("token");
+                navigate("/");
+              }}
+            >
+              LOG OFF
+            </button>
+          ) : (
+            <Modal setIsLoggedIn={setIsLoggedIn} />
+          )}
+        </div>
       </div>
     </header>
   );
