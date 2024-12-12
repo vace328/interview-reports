@@ -21,11 +21,18 @@ const NewReport = ({ setClasses }) => {
     JSON.parse(localStorage.getItem("isLoggedIn"))
   );
 
+  const today = new Date();
+  const todayDate = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate();
+  const todayMonth = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1;
+  const todayFormatted = `${today.getFullYear()}-${todayMonth}-${todayDate}`;
+  // console.log(todayFormatted);
+  // console.log(JSON.stringify(todayFormatted));
+
   const [selectedCandidate, setSelectedCandidate] = useState(
     JSON.stringify({})
   );
   const [selectedCompany, setSelectedCompany] = useState(JSON.stringify({}));
-  const [interviewDate, setInterviewDate] = useState("2024-12-11");
+  const [interviewDate, setInterviewDate] = useState(todayFormatted);
   const [phase, setPhase] = useState("hr");
   const [status, setStatus] = useState("passed");
   const [note, setNote] = useState("");
@@ -70,7 +77,6 @@ const NewReport = ({ setClasses }) => {
 
     if (handleValidation(selectedCandidate, selectedCompany)) {
       if (!isLoggedIn) {
-        // <Modal />
         navigate("/");
       } else {
         fetch(REPORTS, {
@@ -85,23 +91,24 @@ const NewReport = ({ setClasses }) => {
           .then((data) => {
             if (data === "jwt expired") {
               localStorage.removeItem("authToken");
-              // navigate("/");
-              <Modal setIsLoggedIn={setIsLoggedIn} />;
+              localStorage.setItem("isLoggedIn", false);
+              navigate("/");
             } else {
               setSelectedCandidate(JSON.stringify({}));
               setSelectedCompany(JSON.stringify({}));
-              setInterviewDate("2024-12-11");
+              setInterviewDate(todayFormatted);
               setPhase("hr");
               setStatus("passed");
               setNote("");
               setReportAdded((prev) => prev + 1);
-              notify()
+              notify();
             }
 
-            // if (data === "Incorrect authorization scheme") {
-            //   <Modal />
-            //   // navigate("/");
-            // }
+            if (data === "Incorrect authorization scheme") {
+              console.log(data);
+              localStorage.setItem("isLoggedIn", false);
+              navigate("/");
+            }
           })
           .catch((error) => {
             console.log(error);

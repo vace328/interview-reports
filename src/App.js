@@ -18,6 +18,7 @@ function App() {
   const [classes, setClasses] = useState("outer-wrapper");
   const [refresh, setIsRefreshed] = useState(0);
   const [reportAdded, setReportAdded] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const options = {
@@ -56,7 +57,7 @@ function App() {
     <div className={classes}>
       <div className="page-wrapper">
         <Header />
-        <DataProvider value={{ candidates, reports, refresh, setIsRefreshed, setReportAdded }}>        
+        <DataProvider value={{ candidates, reports, refresh, setIsRefreshed, setReportAdded, setIsLoggedIn }}>        
           <Routes>
             <Route index element={<Home setClasses={setClasses} />} />
             <Route

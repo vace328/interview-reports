@@ -1,6 +1,3 @@
-// insert this in ReportsTable <DeleteReport reportId={report.id} />
-// instead of deleteIcon image, optionally use unicode &#128465;
-
 import React, { useState, useContext } from "react";
 import { dataContext } from "../../contexts";
 
@@ -17,21 +14,30 @@ const DeleteReport = ({ reportId }) => {
         Authorization: localStorage.getItem("authToken"),
         "Content-Type": "application/json",
       },
-    }).then((response) => {
-      if (!response.ok) {
-        alert("Error deleting report. Please try again later.");
-      }
-
-      setIsRefreshed(refreshed + 1);
-      setIsDeleting(false);
-    });
+    })
+      .then((response) => {
+        if (!response.ok) {
+          alert("Error deleting report. Please try again later.");
+        }
+      })
+      .then(() => {
+        setIsRefreshed(refreshed + 1);
+        setIsDeleting(false);
+      });
   };
 
   return (
-    <button disabled={isDeleting} onClick={handleDelete}>
-      {/* <img src={deleteIcon} alt="Delete" /> */}
-      &#10008;
-    </button>
+    <>
+      <button
+        disabled={isDeleting}
+        onClick={() => {
+          handleDelete();
+        }}
+      >
+        {/* <img src={deleteIcon} alt="Delete" /> */}
+        &#10008;
+      </button>
+    </>
   );
 };
 
