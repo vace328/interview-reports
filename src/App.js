@@ -10,11 +10,13 @@ import { useEffect, useState } from "react";
 import Admin from "./pages/Admin/Admin";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
   const [candidates, setCandidates] = useState([]);
   const [reports, setReports] = useState([]);
   const [classes, setClasses] = useState("outer-wrapper");
+  const [reportAdded, setReportAdded] = useState(0);
 
   useEffect(() => {
     const options = {
@@ -47,22 +49,39 @@ function App() {
         console.log(res);
         setReports(res);
       });
-  }, []);
+  }, [reportAdded]);
 
   return (
-    <div className={classes}>   
+    <div className={classes}>
       <div className="page-wrapper">
-        <Header />
-        <DataProvider value={{ candidates, reports }}>
+        <DataProvider value={{ candidates, reports, setReportAdded }}>
+          <Header />
           <Routes>
             <Route index element={<Home setClasses={setClasses} />} />
-            <Route path="candidates" element={<Candidates setClasses={setClasses} />} />
-            <Route path="candidate/:id" element={<Single setClasses={setClasses} />} />
-            <Route path="admin" element={<Admin setClasses={setClasses} />} />
-            <Route path="admin/new-report" element={<NewReport setClasses={setClasses} />} />
+            <Route
+              path="candidates"
+              element={<Candidates setClasses={setClasses} />}
+            />
+            <Route
+              path="candidate/:id"
+              element={<Single setClasses={setClasses} />}
+            />
+
+            <Route element={<PrivateRoutes />}>
+              <Route
+                path="admin"
+                element={<Admin setClasses={setClasses} exact />}
+              />
+            </Route>
+            <Route element={<PrivateRoutes />}>
+              <Route
+                path="admin/new-report"
+                element={<NewReport setClasses={setClasses} />}
+              />
+            </Route>
           </Routes>
+          <Footer />
         </DataProvider>
-        <Footer />
       </div>
     </div>
   );
