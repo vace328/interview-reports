@@ -12,10 +12,12 @@ header {
   padding: 9px 5px 5px 5px;
 }
 
+.nav-link * {
+  font-size: 20px;
+}
+
 header a {
   text-decoration: none;
-  font-size: 24px;
-  /* font-family: Raleway; */
   font-family: 'Anton SC', sans-serif;
   color: black;
   line-height: normal;
@@ -23,7 +25,6 @@ header a {
 }
 header button {
   padding: 0;
-  font-size: 24px;
   background-color: transparent;
   border: none;
   /* font-family: Raleway; */
@@ -32,8 +33,6 @@ header button {
   padding-right: 30px;
   cursor: pointer;
 }
-
-
 
 @media(max-width: 600px){
   header{
@@ -48,31 +47,23 @@ header button {
    flex-direction: row;
    justify-content: center;
    align-items: center;
-   height: 50px;
-   
-     
-  }
- 
+   height: 50px;     
+  } 
   .logo img{
     max-width: 100%;
     max-height: 100%;
-    width: 100px
-    
+    width: 100px;    
   }
   .candidates a{
    width: 30px;
-   font-size: 14px;
   }
   .login{
     text-align: center;
   }
-  .login button{
-    
+  .login button {    
     display: inline-block;
-    font-size: 14px;
     padding-right: 0px;
   }
-
 }
 
 @media(min-width: 600px){
@@ -95,8 +86,6 @@ header button {
   .links-container{
    display: flex;
    flex-direction: row;
-   
-
   }
   .login button{
     font-size: 16px;

@@ -19,26 +19,34 @@ const Header = () => {
           <img src={Logo} alt="logo" />
         </NavLink>
       </nav>
+
       <div className="links-container">
-      <div className="candidates">
-        <NavLink to="/candidates">CANDIDATES</NavLink>
-      </div>
-      <div className="login">
-        {isLoggedIn ? (
-          <button
-            onClick={() => {
-              setIsLoggedIn(false);
-              localStorage.setItem("isLoggedIn", false);
-              localStorage.removeItem("token");
-              navigate("/");
-            }}
-          >
-            LOG OFF
-          </button>
-        ) : (
-          <Modal setIsLoggedIn={setIsLoggedIn} />
+        {isLoggedIn && (
+          <div className="nav-link reports">
+            <NavLink to="/admin">REPORTS</NavLink>
+          </div>
         )}
-      </div>
+
+        <div className="nav-link candidates">
+          <NavLink to="/candidates">CANDIDATES</NavLink>
+        </div>
+
+        <div className="login nav-link">
+          {isLoggedIn ? (
+            <button
+              onClick={() => {
+                setIsLoggedIn(false);
+                localStorage.setItem("isLoggedIn", false);
+                localStorage.removeItem("authToken");
+                navigate("/");
+              }}
+            >
+              LOG OFF
+            </button>
+          ) : (
+            <Modal setIsLoggedIn={setIsLoggedIn} />
+          )}
+        </div>
       </div>
     </header>
   );
