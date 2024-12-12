@@ -20,13 +20,28 @@ const Header = () => {
         </NavLink>
       </nav>
       <div className="links-container">
-        <div className="candidates">
-          <NavLink to="/candidates">CANDIDATES</NavLink>
-        </div>
         {isLoggedIn && (
           <div className="reports">
             <NavLink to="/admin">REPORTS</NavLink>
           </div>
+       )}
+      <div className="candidates">
+        <NavLink to="/candidates">CANDIDATES</NavLink>
+      </div>
+      <div className="login">
+        {isLoggedIn ? (
+          <button
+            onClick={() => {
+              setIsLoggedIn(false);
+              localStorage.setItem("isLoggedIn", false);
+              localStorage.removeItem("authToken");
+              navigate("/");
+            }}
+          >
+            LOG OFF
+          </button>
+        ) : (
+          <Modal setIsLoggedIn={setIsLoggedIn} />
         )}
         <div className="login">
           {isLoggedIn ? (
