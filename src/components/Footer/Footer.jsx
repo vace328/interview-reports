@@ -5,7 +5,7 @@ import { NavLink } from "react-router";
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>&copy; {new Date().getFullYear()} My Company. All rights reserved.</p>
+      <p>&copy; {new Date().getFullYear()} &lt;joinIT /&gt;. All rights reserved.</p>
       <div className="footer-links">
         <NavLink to="/">Home</NavLink>
         <NavLink to="/candidates">Candidates</NavLink>
