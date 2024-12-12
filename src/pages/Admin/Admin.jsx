@@ -5,9 +5,10 @@ import AdminSearch from "../../components/AdminSearch/AdminSearch";
 import ReportCard from "../../components/ReportCard/ReportCard";
 import useResize from "../../hooks/useResize";
 
-const Admin = ({setClasses}) => {
+const Admin = ({ setClasses }) => {
   const reports = useContext(dataContext).reports;
   const [search, setSearch] = useState("");
+
   const filteredReports = reports?.filter((report) => {
     return (
       report?.candidateName?.toLowerCase().includes(search) ||
@@ -17,7 +18,9 @@ const Admin = ({setClasses}) => {
 
   const ref = useRef(null);
   const isShortContent = useResize(ref);
-  let contentDivClass = isShortContent ? "outer-wrapper shortContent" : "outer-wrapper";
+  let contentDivClass = isShortContent
+    ? "outer-wrapper shortContent"
+    : "outer-wrapper";
   useEffect(() => setClasses(contentDivClass));
 
   return (
