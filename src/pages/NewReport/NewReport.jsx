@@ -7,6 +7,8 @@ import { REPORTS } from "../../utils/constants";
 import { useNavigate } from "react-router";
 import Modal from "react-responsive-modal";
 // import "./Modal.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -19,7 +21,9 @@ const NewReport = ({ setClasses }) => {
     JSON.parse(localStorage.getItem("isLoggedIn"))
   );
 
-  const [selectedCandidate, setSelectedCandidate] = useState(JSON.stringify({}));
+  const [selectedCandidate, setSelectedCandidate] = useState(
+    JSON.stringify({})
+  );
   const [selectedCompany, setSelectedCompany] = useState(JSON.stringify({}));
   const [interviewDate, setInterviewDate] = useState("2024-12-11");
   const [phase, setPhase] = useState("hr");
@@ -28,6 +32,8 @@ const NewReport = ({ setClasses }) => {
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
+  const setReportAdded = useContext(dataContext).setReportAdded;
+  const notify = () => toast("Report successfully added!");
 
   const handleValidation = (candidate, company) => {
     // const formFields = {...fields};
@@ -35,19 +41,18 @@ const NewReport = ({ setClasses }) => {
     let formIsValid = true;
 
     //Name
-    if(Object.keys(JSON.parse(candidate)).length === 0){
+    if (Object.keys(JSON.parse(candidate)).length === 0) {
       formIsValid = false;
       formErrors["candidate"] = "You must choose a candidate";
     }
-    if(Object.keys(JSON.parse(company)).length === 0){
+    if (Object.keys(JSON.parse(company)).length === 0) {
       formIsValid = false;
       formErrors["company"] = "You must choose a company";
-    }  
-   
+    }
 
-    setErrors(formErrors)
+    setErrors(formErrors);
     return formIsValid;
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -63,7 +68,7 @@ const NewReport = ({ setClasses }) => {
       note: note,
     };
 
-    if(handleValidation(selectedCandidate, selectedCompany)){
+    if (handleValidation(selectedCandidate, selectedCompany)) {
       if (!isLoggedIn) {
         // <Modal />
         navigate("/");
@@ -81,7 +86,7 @@ const NewReport = ({ setClasses }) => {
             if (data === "jwt expired") {
               localStorage.removeItem("authToken");
               // navigate("/");
-              <Modal setIsLoggedIn={setIsLoggedIn} />
+              <Modal setIsLoggedIn={setIsLoggedIn} />;
             } else {
               setSelectedCandidate(JSON.stringify({}));
               setSelectedCompany(JSON.stringify({}));
@@ -89,8 +94,10 @@ const NewReport = ({ setClasses }) => {
               setPhase("hr");
               setStatus("passed");
               setNote("");
+              setReportAdded((prev) => prev + 1);
+              notify()
             }
-            
+
             // if (data === "Incorrect authorization scheme") {
             //   <Modal />
             //   // navigate("/");
@@ -99,12 +106,11 @@ const NewReport = ({ setClasses }) => {
           .catch((error) => {
             console.log(error);
           });
-      }      
-    }else{
-      console.log("Form has errors.")
+      }
+    } else {
+      console.log("Form has errors.");
     }
 
-   
     // console.log(JSON.parse(selectedCandidate).id);
     // console.log(JSON.parse(selectedCandidate).name);
     // console.log(JSON.parse(selectedCompany).id);
@@ -284,9 +290,14 @@ const NewReport = ({ setClasses }) => {
           </div>
 
           {/* <div class="error-msg hide">All fields are required.</div> */}
-          <button id="submitPost" type="submit" className="new-report btn-submit">
+          <button
+            id="submitPost"
+            type="submit"
+            className="new-report btn-submit"
+          >
             Submit report
           </button>
+          <ToastContainer />
         </form>
       </div>
     </div>
