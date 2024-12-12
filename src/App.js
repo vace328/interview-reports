@@ -16,6 +16,7 @@ function App() {
   const [candidates, setCandidates] = useState([]);
   const [reports, setReports] = useState([]);
   const [classes, setClasses] = useState("outer-wrapper");
+  const [refresh, setIsRefreshed] = useState(0);
   const [reportAdded, setReportAdded] = useState(0);
 
   useEffect(() => {
@@ -49,13 +50,13 @@ function App() {
         console.log(res);
         setReports(res);
       });
-  }, [reportAdded]);
+  }, [refresh, reportAdded]);
 
   return (
     <div className={classes}>
       <div className="page-wrapper">
-        <DataProvider value={{ candidates, reports, setReportAdded }}>
-          <Header />
+        <Header />
+        <DataProvider value={{ candidates, reports, refresh, setIsRefreshed, setReportAdded }}>        
           <Routes>
             <Route index element={<Home setClasses={setClasses} />} />
             <Route

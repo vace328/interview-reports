@@ -2,6 +2,7 @@ import "./ReportCard.css";
 import { formatDate } from "../../utils/format-data";
 import { useModalManager } from "../../hooks/useModal";
 import RCModal from "../RCModal/RCModal";
+import DeleteReport from "../DeleteReport/DeleteReport";
 
 const ReportCard = ({ report }) => {
   const date = formatDate(report.interviewDate);
@@ -16,7 +17,8 @@ const ReportCard = ({ report }) => {
         <div className="status">{report.status}</div>
         <div className="buttons">
           <button onClick={() => openModal("viewModal")}>&#128065;</button>
-          <button>&#10008;</button>
+          {/* <button>&#10008;</button> */}
+          <DeleteReport reportId={report.id} />
         </div>
       </div>
       {currentModal === "viewModal" && (

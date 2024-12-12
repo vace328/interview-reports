@@ -10,6 +10,7 @@ const Admin = ({ setClasses }) => {
   const navigate = useNavigate();
   const reports = useContext(dataContext).reports;
   const [search, setSearch] = useState("");
+
   const filteredReports = reports?.filter((report) => {
     return (
       report?.candidateName?.toLowerCase().includes(search) ||

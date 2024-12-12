@@ -65,12 +65,15 @@
 .submit-button:hover {
   background-color: #0e6973;
 }
-
+.shaking {
+  display: flex;
+  justify-content: center;
+}
 .shaking img {
-  width: 100%;
+  width: 50%;
   height: 50%;
-  border-radius: 0px 0px 0px 40px;
-  margin-top: 85px;
+  margin-top: 30px;
+  padding-bottom: 30px;
 }
 
 .login-info .welcome {
