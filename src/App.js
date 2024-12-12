@@ -18,14 +18,12 @@ function App() {
   const [classes, setClasses] = useState("outer-wrapper");
   const [refresh, setIsRefreshed] = useState(0);
   const [reportAdded, setReportAdded] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const options = {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: TOKEN,
       },
     };
 
@@ -57,7 +55,15 @@ function App() {
     <div className={classes}>
       <div className="page-wrapper">
         <Header />
-        <DataProvider value={{ candidates, reports, refresh, setIsRefreshed, setReportAdded, setIsLoggedIn }}>        
+        <DataProvider
+          value={{
+            candidates,
+            reports,
+            refresh,
+            setIsRefreshed,
+            setReportAdded,
+          }}
+        >
           <Routes>
             <Route index element={<Home setClasses={setClasses} />} />
             <Route

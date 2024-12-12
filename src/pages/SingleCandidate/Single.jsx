@@ -2,27 +2,27 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router";
 import "./Single.css";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import ReportsTable from '../../components/ReportsTable/ReportsTable'
+import ReportsTable from "../../components/ReportsTable/ReportsTable";
 import useResize from "../../hooks/useResize";
 
-
-const Single = ({setClasses}) => {
+const Single = ({ setClasses }) => {
   const { id } = useParams();
   const [data, setData] = useState({});
 
   const ref = useRef(null);
   const isShortContent = useResize(ref);
-  let contentDivClass = isShortContent ? "outer-wrapper shortContent" : "outer-wrapper";
+  let contentDivClass = isShortContent
+    ? "outer-wrapper shortContent"
+    : "outer-wrapper";
   useEffect(() => setClasses(contentDivClass));
 
   useEffect(() => {
     fetch(`http://localhost:3333/api/candidates?id=${id}`)
       .then((res) => res.json())
       .then((data) => setData(data[0]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   return (
     <div className="content-wrapper" ref={ref}>
       <div className="container">

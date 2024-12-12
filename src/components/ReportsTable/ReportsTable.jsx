@@ -34,6 +34,7 @@ const ReportsTable = ({ id }) => {
         // console.log(res);
         setTableData(getDefaultSorting(res, columns));
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSorting = (sortField, sortOrder) => {

@@ -5,8 +5,6 @@ import { dataContext } from "../../contexts";
 import { COMPANIES } from "../../utils/constants";
 import { REPORTS } from "../../utils/constants";
 import { useNavigate } from "react-router";
-import Modal from "react-responsive-modal";
-// import "./Modal.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,37 +15,35 @@ function randomIntFromInterval(min, max) {
 const NewReport = ({ setClasses }) => {
   const [companies, setCompanies] = useState([]);
   const candidates = useContext(dataContext).candidates;
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    JSON.parse(localStorage.getItem("isLoggedIn"))
-  );
+  const [isLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
 
   const today = new Date();
-  const todayDate = today.getDate() < 10 ? `0${today.getDate()}` : today.getDate();
-  const todayMonth = today.getMonth() + 1 < 10 ? `0${today.getMonth() + 1}` : today.getMonth() + 1;
-  const todayFormatted = `${today.getFullYear()}-${todayMonth}-${todayDate}`;
-  // console.log(todayFormatted);
-  // console.log(JSON.stringify(todayFormatted));
+  const todayFormatted = today.toISOString().split("T")[0];
 
   const [selectedCandidate, setSelectedCandidate] = useState(
     JSON.stringify({})
   );
   const [selectedCompany, setSelectedCompany] = useState(JSON.stringify({}));
   const [interviewDate, setInterviewDate] = useState(todayFormatted);
-  const [phase, setPhase] = useState("hr");
-  const [status, setStatus] = useState("passed");
+  const [checkedPhase, setCheckedPhase] = useState({
+    isChecked: "",
+  });
+  const [checkedStatus, setCheckedStatus] = useState({
+    isChecked: "",
+  });
   const [note, setNote] = useState("");
   const [errors, setErrors] = useState({});
 
+  // Toastify message
   const navigate = useNavigate();
   const setReportAdded = useContext(dataContext).setReportAdded;
   const notify = () => toast("Report successfully added!");
 
+  // Form validation
   const handleValidation = (candidate, company) => {
-    // const formFields = {...fields};
     const formErrors = {};
     let formIsValid = true;
 
-    //Name
     if (Object.keys(JSON.parse(candidate)).length === 0) {
       formIsValid = false;
       formErrors["candidate"] = "You must choose a candidate";
@@ -55,6 +51,14 @@ const NewReport = ({ setClasses }) => {
     if (Object.keys(JSON.parse(company)).length === 0) {
       formIsValid = false;
       formErrors["company"] = "You must choose a company";
+    }
+    if (checkedPhase.isChecked === "") {
+      formIsValid = false;
+      formErrors["phase"] = "You must choose a phase";
+    }
+    if (checkedStatus.isChecked === "") {
+      formIsValid = false;
+      formErrors["status"] = "You must choose status";
     }
 
     setErrors(formErrors);
@@ -70,8 +74,8 @@ const NewReport = ({ setClasses }) => {
       companyId: JSON.parse(selectedCompany).id,
       companyName: JSON.parse(selectedCompany).name,
       interviewDate: interviewDate,
-      phase: phase,
-      status: status,
+      phase: checkedPhase.isChecked,
+      status: checkedStatus.isChecked,
       note: note,
     };
 
@@ -94,18 +98,19 @@ const NewReport = ({ setClasses }) => {
               localStorage.setItem("isLoggedIn", false);
               navigate("/");
             } else {
+              // Reset form on successful submit
               setSelectedCandidate(JSON.stringify({}));
               setSelectedCompany(JSON.stringify({}));
               setInterviewDate(todayFormatted);
-              setPhase("hr");
-              setStatus("passed");
+              setCheckedPhase({ isChecked: "" });
+              setCheckedStatus({ isChecked: "" });
               setNote("");
               setReportAdded((prev) => prev + 1);
               notify();
             }
 
             if (data === "Incorrect authorization scheme") {
-              console.log(data);
+              // console.log(data);
               localStorage.setItem("isLoggedIn", false);
               navigate("/");
             }
@@ -117,17 +122,9 @@ const NewReport = ({ setClasses }) => {
     } else {
       console.log("Form has errors.");
     }
-
-    // console.log(JSON.parse(selectedCandidate).id);
-    // console.log(JSON.parse(selectedCandidate).name);
-    // console.log(JSON.parse(selectedCompany).id);
-    // console.log(JSON.parse(selectedCompany).name);
-    // console.log(interviewDate);
-    // console.log(phase);
-    // console.log(status);
-    // console.log(note);
   };
 
+  // Keep footer at the bottom if the content is short
   const ref = useRef(null);
   const isShortContent = useResize(ref);
   let contentDivClass = isShortContent
@@ -135,6 +132,7 @@ const NewReport = ({ setClasses }) => {
     : "outer-wrapper";
   useEffect(() => setClasses(contentDivClass));
 
+  // Fetch companies
   useEffect(() => {
     const options = {
       method: "GET",
@@ -142,7 +140,6 @@ const NewReport = ({ setClasses }) => {
         "Content-Type": "application/json",
       },
     };
-
     fetch(COMPANIES, options)
       .then((res) => res.json())
       .then((res) => {
@@ -223,16 +220,7 @@ const NewReport = ({ setClasses }) => {
               value={interviewDate}
               onChange={(e) => {
                 const fullDate = new Date(e.target.value);
-                const date =
-                  fullDate.getDate() < 10
-                    ? `0${fullDate.getDate()}`
-                    : fullDate.getDate();
-                const month =
-                  fullDate.getMonth() + 1 < 10
-                    ? `0${fullDate.getMonth() + 1}`
-                    : fullDate.getMonth() + 1;
-                const formatted = `${fullDate.getFullYear()}-${month}-${date}`;
-                setInterviewDate(formatted);
+                setInterviewDate(fullDate.toISOString().split("T")[0]);
               }}
             />
           </div>
@@ -242,10 +230,12 @@ const NewReport = ({ setClasses }) => {
               type="radio"
               id="phase-hr"
               name="phase"
-              value={phase}
-              defaultChecked
+              checked={checkedPhase.isChecked === "hr"}
+              value="hr"
               onChange={(e) => {
-                setPhase(e.target.value);
+                delete errors.phase;
+                setErrors(errors);
+                setCheckedPhase({ isChecked: e.target.value });
               }}
             />
             HR
@@ -253,12 +243,16 @@ const NewReport = ({ setClasses }) => {
               type="radio"
               id="phase-final"
               name="phase"
-              value={status}
+              checked={checkedPhase.isChecked === "final"}
+              value="final"
               onChange={(e) => {
-                setPhase(e.target.value);
+                delete errors.phase;
+                setErrors(errors);
+                setCheckedPhase({ isChecked: e.target.value });
               }}
             />
             Final
+            <div className="error">{errors["phase"]}</div>
           </div>
           <div className="formFieldWrapper">
             <label htmlFor="status">Status</label>
@@ -266,10 +260,12 @@ const NewReport = ({ setClasses }) => {
               type="radio"
               id="status-passed"
               name="status"
+              checked={checkedStatus.isChecked === "passed"}
               value="passed"
-              defaultChecked
               onChange={(e) => {
-                setStatus(e.target.value);
+                delete errors.status;
+                setErrors(errors);
+                setCheckedStatus({ isChecked: e.target.value });
               }}
             />
             Passed
@@ -277,12 +273,16 @@ const NewReport = ({ setClasses }) => {
               type="radio"
               id="status-declined"
               name="status"
+              checked={checkedStatus.isChecked === "declined"}
               value="declined"
               onChange={(e) => {
-                setStatus(e.target.value);
+                delete errors.status;
+                setErrors(errors);
+                setCheckedStatus({ isChecked: e.target.value });
               }}
             />
             Declined
+            <div className="error">{errors["status"]}</div>
           </div>
           <div className="formFieldWrapper">
             <label htmlFor="note">Note</label>
@@ -295,8 +295,6 @@ const NewReport = ({ setClasses }) => {
               }}
             ></textarea>
           </div>
-
-          {/* <div class="error-msg hide">All fields are required.</div> */}
           <button
             id="submitPost"
             type="submit"
