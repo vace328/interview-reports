@@ -29,7 +29,7 @@ const Header = () => {
             onClick={() => {
               setIsLoggedIn(false);
               localStorage.setItem("isLoggedIn", false);
-              localStorage.removeItem("token");
+              localStorage.removeItem("authToken");
               navigate("/");
             }}
           >

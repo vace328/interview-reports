@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router";
 import Home from "./pages/Home/Home";
 import Candidates from "./pages/Candidates/Candidates";
 import Single from "./pages/SingleCandidate/Single";
+import NewReport from "./pages/NewReport/NewReport";
 import { DataProvider } from "./contexts";
 import { CANDIDATES, REPORTS } from "./utils/constants";
 import { useEffect, useState } from "react";
@@ -58,6 +59,7 @@ function App() {
             <Route path="candidates" element={<Candidates setClasses={setClasses} />} />
             <Route path="candidate/:id" element={<Single setClasses={setClasses} />} />
             <Route path="admin" element={<Admin setClasses={setClasses} />} />
+            <Route path="admin/new-report" element={<NewReport setClasses={setClasses} />} />
           </Routes>
         </DataProvider>
         <Footer />
