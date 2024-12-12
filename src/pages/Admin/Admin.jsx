@@ -29,6 +29,7 @@ const Admin = ({ setClasses }) => {
       <AdminSearch search={search} setSearch={setSearch} reports={reports} />
       <div className="action-wrapper">
         <button
+          className="new-report"
           onClick={() => {
             navigate(`/admin/new-report`);
           }}

@@ -5,6 +5,8 @@ import { dataContext } from "../../contexts";
 import { COMPANIES } from "../../utils/constants";
 import { REPORTS } from "../../utils/constants";
 import { useNavigate } from "react-router";
+import Modal from "react-responsive-modal";
+// import "./Modal.css";
 
 function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -13,15 +15,39 @@ function randomIntFromInterval(min, max) {
 const NewReport = ({ setClasses }) => {
   const [companies, setCompanies] = useState([]);
   const candidates = useContext(dataContext).candidates;
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    JSON.parse(localStorage.getItem("isLoggedIn"))
+  );
 
-  const [selectedCandidate, setSelectedCandidate] = useState("DEFAULT");
-  const [selectedCompany, setSelectedCompany] = useState("DEFAULT");
+  const [selectedCandidate, setSelectedCandidate] = useState(JSON.stringify({}));
+  const [selectedCompany, setSelectedCompany] = useState(JSON.stringify({}));
   const [interviewDate, setInterviewDate] = useState("2024-12-11");
   const [phase, setPhase] = useState("hr");
   const [status, setStatus] = useState("passed");
   const [note, setNote] = useState("");
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
+
+  const handleValidation = (candidate, company) => {
+    // const formFields = {...fields};
+    const formErrors = {};
+    let formIsValid = true;
+
+    //Name
+    if(Object.keys(JSON.parse(candidate)).length === 0){
+      formIsValid = false;
+      formErrors["candidate"] = "You must choose a candidate";
+    }
+    if(Object.keys(JSON.parse(company)).length === 0){
+      formIsValid = false;
+      formErrors["company"] = "You must choose a company";
+    }  
+   
+
+    setErrors(formErrors)
+    return formIsValid;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,35 +63,48 @@ const NewReport = ({ setClasses }) => {
       note: note,
     };
 
-    fetch(REPORTS, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("authToken"),
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data === "jwt expired") {
-          localStorage.removeItem("authToken");
-          navigate("/");
-        } else {
-          setSelectedCandidate("DEFAULT");
-          setSelectedCompany("DEFAULT");
-          setInterviewDate("2024-12-11");
-          setPhase("hr");
-          setStatus("passed");
-          setNote("");
-        }
-        if (data === "Incorrect authorization scheme") {
-          navigate("/");
-        }
-        // console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if(handleValidation(selectedCandidate, selectedCompany)){
+      if (!isLoggedIn) {
+        // <Modal />
+        navigate("/");
+      } else {
+        fetch(REPORTS, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("authToken"),
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data === "jwt expired") {
+              localStorage.removeItem("authToken");
+              // navigate("/");
+              <Modal setIsLoggedIn={setIsLoggedIn} />
+            } else {
+              setSelectedCandidate(JSON.stringify({}));
+              setSelectedCompany(JSON.stringify({}));
+              setInterviewDate("2024-12-11");
+              setPhase("hr");
+              setStatus("passed");
+              setNote("");
+            }
+            
+            // if (data === "Incorrect authorization scheme") {
+            //   <Modal />
+            //   // navigate("/");
+            // }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }      
+    }else{
+      console.log("Form has errors.")
+    }
+
+   
     // console.log(JSON.parse(selectedCandidate).id);
     // console.log(JSON.parse(selectedCandidate).name);
     // console.log(JSON.parse(selectedCompany).id);
@@ -110,11 +149,13 @@ const NewReport = ({ setClasses }) => {
               name="candidateId"
               id="candidate"
               onChange={(e) => {
+                delete errors.candidate;
+                setErrors(errors);
                 setSelectedCandidate(e.target.value);
               }}
               value={selectedCandidate}
             >
-              <option hidden disabled value="DEFAULT">
+              <option hidden disabled value={JSON.stringify({})}>
                 {" "}
                 -- select an option --{" "}
               </option>
@@ -129,6 +170,7 @@ const NewReport = ({ setClasses }) => {
                 );
               })}
             </select>
+            <span className="error">{errors["candidate"]}</span>
           </div>
           <div className="formFieldWrapper">
             <label htmlFor="company">Company</label>
@@ -136,11 +178,13 @@ const NewReport = ({ setClasses }) => {
               name="company"
               id="company"
               onChange={(e) => {
+                delete errors.company;
+                setErrors(errors);
                 setSelectedCompany(e.target.value);
               }}
               value={selectedCompany}
             >
-              <option hidden disabled value="DEFAULT">
+              <option hidden disabled value={JSON.stringify({})}>
                 {" "}
                 -- select an option --{" "}
               </option>
@@ -155,6 +199,7 @@ const NewReport = ({ setClasses }) => {
                 );
               })}
             </select>
+            <span className="error">{errors["company"]}</span>
           </div>
           <div className="formFieldWrapper">
             <label htmlFor="date">Interview Date</label>
@@ -239,7 +284,7 @@ const NewReport = ({ setClasses }) => {
           </div>
 
           {/* <div class="error-msg hide">All fields are required.</div> */}
-          <button id="submitPost" type="submit" className="btn-submit">
+          <button id="submitPost" type="submit" className="new-report btn-submit">
             Submit report
           </button>
         </form>

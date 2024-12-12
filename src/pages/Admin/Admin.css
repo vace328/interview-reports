@@ -16,7 +16,7 @@
   text-align: right;
   /* padding-right: ; */
 }
-.action-wrapper button {
+.new-report {
   background-color: var(--main-dark);
   color: var(--accent);
   font-weight: 700;
