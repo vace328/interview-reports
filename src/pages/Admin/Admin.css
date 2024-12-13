@@ -1,0 +1,40 @@
+.rcard-title {
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  padding: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.actions {
+  width: 15%;
+  text-align: center;
+}
+.action-wrapper{
+  width: 90%;
+  margin: 20px auto;
+  text-align: right;
+  /* padding-right: ; */
+}
+.new-report {
+  background-color: var(--main-dark);
+  color: var(--accent);
+  font-weight: 700;
+  padding: 15px 10px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+@media (max-width: 850px) {
+  .rcard-title {
+    display: none;
+  }
+}
+@media (max-width: 500px) {
+  .action-wrapper {
+    text-align: center;
+  }
+}

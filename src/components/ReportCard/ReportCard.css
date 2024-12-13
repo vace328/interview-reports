@@ -1,0 +1,60 @@
+.rcard-wrapper {
+  border: 1px solid black;
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--accent);
+  font-weight: bold;
+  align-items: center;
+}
+.company {
+  width: 25%;
+  text-align: center;
+}
+.candidate {
+  width: 25%;
+  text-align: center;
+}
+.date {
+  width: 20%;
+  text-align: center;
+}
+.status {
+  width: 15%;
+  text-align: center;
+}
+.buttons {
+  width: 15%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: 30px;
+}
+.buttons button {
+  border: none;
+  margin: 0 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 40%;
+  text-align: center;
+  font-size: 20px;
+}
+@media (max-width: 1000px) {
+  .buttons button {
+    font-size: 15px;
+  }
+}
+@media (max-width: 850px) {
+  .rcard-wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .buttons {
+    width: 40%;
+  }
+  .buttons button {
+    width: 50%;
+  }
+}

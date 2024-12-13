@@ -1,0 +1,43 @@
+h1.form-page-heading {
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+.form-wrapper {
+  margin: 0 auto 20px auto;
+  width: 50%;
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.formFieldWrapper {
+  margin-bottom: 20px;
+  padding: 0 10px 0 20px;
+  border-left: 4px solid var(--accent);
+}
+
+input:not(input[type="radio"]),
+select,
+textarea {
+  width: 100%;
+}
+/* #date {
+    width: 300px;
+    padding: 10px;
+    border: none;
+} */
+
+.btn-submit {
+  display: block;
+  margin: 0 0 0 auto;
+}
+
+.error{
+  margin-left: 5px;
+  font-size: 13px;
+  color: red;
+}
