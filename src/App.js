@@ -11,6 +11,7 @@ import Admin from "./pages/Admin/Admin";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import EditReport from "./components/EditReport/EditReport";
 
 function App() {
   const [candidates, setCandidates] = useState([]);
@@ -85,6 +86,12 @@ function App() {
               <Route
                 path="admin/new-report"
                 element={<NewReport setClasses={setClasses} />}
+              />
+            </Route>
+            <Route element={<PrivateRoutes />}>
+              <Route
+                path="admin/edit-report/:id"
+                element={<EditReport setClasses={setClasses} />}
               />
             </Route>
           </Routes>
