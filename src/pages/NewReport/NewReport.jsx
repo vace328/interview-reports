@@ -14,7 +14,7 @@ function randomIntFromInterval(min, max) {
 
 const NewReport = ({ setClasses }) => {
   const [companies, setCompanies] = useState([]);
-  const candidates = useContext(dataContext).candidates;
+  const candidates = useContext(dataContext).candidates.filter((candidate) => candidate.hasOwnProperty('name'));
   const [isLoggedIn] = useState(JSON.parse(localStorage.getItem("isLoggedIn")));
 
   const today = new Date();
@@ -169,10 +169,10 @@ const NewReport = ({ setClasses }) => {
                 {" "}
                 -- select an option --{" "}
               </option>
-              {candidates.map((candidate) => {
+              {candidates.map((candidate, i) => {
                 return (
                   <option
-                    key={crypto.randomUUID()}
+                    key={i+1}
                     value={JSON.stringify(candidate)}
                   >
                     {candidate.name}

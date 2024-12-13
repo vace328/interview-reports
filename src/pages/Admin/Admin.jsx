@@ -47,8 +47,8 @@ const Admin = ({ setClasses }) => {
       </div>
       <div>
         <div className="reports-wrapper">
-          {filteredReports?.map((report) => {
-            return <ReportCard report={report} />;
+          {filteredReports?.map((report, i) => {
+            return <ReportCard key={i+1} report={report} />;
           })}
         </div>
       </div>
